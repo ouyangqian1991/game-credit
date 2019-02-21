@@ -1,0 +1,10 @@
+spring:
+ application:
+  name: game-credit-message
+ profiles:
+  active: dev
+eureka:
+ client:
+  healthcheck:
+   enabled: true
+

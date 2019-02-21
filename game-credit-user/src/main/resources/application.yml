@@ -1,0 +1,27 @@
+spring:
+ application:
+  name: game-credit-user
+ profiles:
+  active: dev
+ datasource:
+  type: com.alibaba.druid.pool.DruidDataSource
+  driverClassName: com.mysql.cj.jdbc.Driver
+eureka:
+ client:
+  healthcheck:
+   enabled: true
+mapper:
+  identity: MYSQL   # 取主键的方式
+  before: true      # 主键递增
+  not-empty: true   # 按主键插入或更新时，是否判断字符串 != ''
+  style: camelhumpandlowercase  # 实体类与表中字段的映射方式：驼峰转带下划线的小写格式
+  wrap-keyword: '{0}'   # 自动配置关键字，配置后不需要使用 @Column 指定别名
+  safe-delete: true   # 删除时必须设置查询条件
+  safe-update: true   # 更新时必须设置查询条件
+  use-java-type: true   # 是否映射Java基本数据类型
+  mappers: tk.mybatis.mapper.common.Mapper
+mybatis:
+ mapper-locations: classpath*:mapper/**/**.xml
+ type-aliases-package: com.ouyang.game.pojo.user.model
+ config-location: classpath:config/mybatis_config.xml
+

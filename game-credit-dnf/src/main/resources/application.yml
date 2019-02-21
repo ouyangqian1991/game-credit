@@ -1,0 +1,10 @@
+spring:
+ application:
+  name: game-credit-dnf
+eureka:
+ client:
+  healthcheck:
+   enabled: true
+ profiles:
+  active: dev
+ 

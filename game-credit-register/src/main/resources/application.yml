@@ -9,7 +9,7 @@ eureka:
   enable-self-preservation: false
 spring:
  application:
-  name: member-alliance-regist
+  name: game-credit-register
  profiles:
   active: dev
 

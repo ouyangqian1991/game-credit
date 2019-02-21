@@ -1,0 +1,10 @@
+spring:
+ application:
+  name: game-credit-lol
+eureka:
+ client:
+  healthcheck:
+   enabled: true
+ profiles:
+  active: dev
+ 
