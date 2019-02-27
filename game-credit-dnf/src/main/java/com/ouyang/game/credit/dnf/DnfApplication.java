@@ -1,4 +1,4 @@
-package com.ouyang.game.credit.user; 
+package com.ouyang.game.credit.dnf; 
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,17 +10,17 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 /** 
  * @author 作者 ouyq 
- * @date 创建时间：2019年2月19日 下午4:09:49 
- * 类/接口说明 游戏征信用户模块启动类
+ * @date 创建时间：2019年2月21日 下午5:30:48 
+ * 类/接口说明 
  */
 @SpringBootApplication
 @EnableEurekaClient
 @EnableFeignClients
 @EnableHystrix
-@MapperScan(basePackages = {"com.ouyang.game.credit.user.mapper"})
-public class GameCreditUserApplication {
- public static void main(String[] args) {
-	SpringApplication.run(GameCreditUserApplication.class, args);
-}
+@MapperScan(value="com.ouyang.game.credit.dnf.mapper")
+public class DnfApplication {
+	public static void main(String[] args) {
+		SpringApplication.run(DnfApplication.class, args);
+	}
 }
  

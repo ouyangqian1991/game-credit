@@ -6,6 +6,12 @@ spring:
  datasource:
   type: com.alibaba.druid.pool.DruidDataSource
   driverClassName: com.mysql.cj.jdbc.Driver
+ liquibase:
+  change-log: classpath:liquibase/master.xml
+  url: ${spring.datasource.url}
+  user: ${spring.datasource.username}
+  password: ${spring.datasource.password}
+  enabled: true
 eureka:
  client:
   healthcheck:
@@ -24,4 +30,9 @@ mybatis:
  mapper-locations: classpath*:mapper/**/**.xml
  type-aliases-package: com.ouyang.game.pojo.user.model
  config-location: classpath:config/mybatis_config.xml
+
+#开启feign的熔断器功能
+feign:
+ hystrix:
+  enabled: true
 
