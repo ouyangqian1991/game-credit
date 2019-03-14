@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -25,6 +26,7 @@ import com.ouyang.game.pojo.commons.BasicResponse;
 import com.ouyang.game.pojo.commons.Constant;
 import com.ouyang.game.pojo.message.model.ModelMessage;
 import com.ouyang.game.pojo.user.business.LoginDTO;
+import com.ouyang.game.pojo.user.business.RegisterUserInfo;
 import com.ouyang.game.pojo.user.model.UserInfo;
 import com.ouyang.game.utils.ProjectUtil;
 
@@ -119,6 +121,9 @@ public class LoginServiceImpl implements LoginService{
 
 		if (sendModelMessage.equals(ErrorCodeEnum.SUCCESS.getErrorCode())){
 			return new BasicResponse<>(ErrorCodeEnum.SUCCESS.getErrorCode(), ErrorCodeEnum.SUCCESS.getErrorMsg());
+		}else if(sendModelMessage.equals(ErrorCodeEnum.MESSAGE_SYSTEM_EXCEPTION.getErrorCode())){
+			log.error("短信服务模块无法正常使用，系统已降级");
+			return new BasicResponse<>(ErrorCodeEnum.MESSAGE_SYSTEM_EXCEPTION.getErrorCode(), ErrorCodeEnum.MESSAGE_SYSTEM_EXCEPTION.getErrorMsg());
 		}
 		return new BasicResponse<>(ErrorCodeEnum.SMS_SEND_ERROR.getErrorCode(), ErrorCodeEnum.SMS_SEND_ERROR.getErrorMsg());
 	}
@@ -142,17 +147,18 @@ public class LoginServiceImpl implements LoginService{
 	 */
 	private UserInfo regist(LoginDTO loginDTO) {
 		log.debug("注册方法开始执行，传入参数:{}",loginDTO);
-		UserInfo registUserInfo = loginDTO.getRegistUserInfo();
-		if(registUserInfo == null){
-			registUserInfo = new UserInfo();
+		UserInfo userInfo = new UserInfo();
+		RegisterUserInfo registUserInfo = loginDTO.getRegistUserInfo();
+		if(registUserInfo != null){
+			BeanUtils.copyProperties(registUserInfo, userInfo);
 		}
-		registUserInfo.setUserId(UUID.randomUUID().toString().replaceAll("-", ""));
-		registUserInfo.setMobile(loginDTO.getMobile());
-		registUserInfo.setStatus(StatusEnum.YES.getValue());
+		userInfo.setUserId(UUID.randomUUID().toString().replaceAll("-", ""));
+		userInfo.setMobile(loginDTO.getMobile());
+		userInfo.setStatus(StatusEnum.YES.getValue());
 		//插入数据库操作
-		int addUserInfo = userService.addUserInfo(registUserInfo);
+		int addUserInfo = userService.addUserInfo(userInfo);
 		if(addUserInfo > 0){
-			return registUserInfo;
+			return userInfo;
 		}else{
 			log.error("底层数据库插入失败，返回空的");
 			return null;

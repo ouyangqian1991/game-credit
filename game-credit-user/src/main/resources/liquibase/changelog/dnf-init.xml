@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+<property name="autoIncrement" value="true" dbms="mysql"/>
+
+<changeSet id="dnf-init-2019-02-25" author="ouyangqian">
+	
+	<comment>新建dnf的记录表</comment>
+	<createTable tableName="dnf_credit_record">
+		<column name="credit_record_id" type="varchar(64)" remarks="记录id" >
+			<constraints primaryKey="true" nullable="false"/>
+		</column>
+		<column name="net_region" type="varchar(8)" remarks="网络区域 1:电信区  2:网通区 代码">
+			<constraints nullable="false"/>
+		</column>
+		<column name="corss_region" type="varchar(8)" remarks="跨区:跨-，跨二">
+			<constraints nullable="false"/>
+		</column>
+		<column name="province_region" type="varchar(8)" remarks="省级区域例如:四川2区">
+			<constraints nullable="false"/>
+		</column>
+		<column name="role_name" type="varchar(64)" remarks="行骗嫌疑的游戏角色名称">
+			<constraints nullable="false"/>
+		</column>
+	</createTable>
+	
+</changeSet>
+    
+</databaseChangeLog>

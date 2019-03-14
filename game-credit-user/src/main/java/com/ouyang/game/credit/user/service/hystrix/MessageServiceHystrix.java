@@ -21,7 +21,7 @@ public class MessageServiceHystrix implements MessageService{
 	@Override
 	public String sendModelMessage(ModelMessage modelMessage) {
 		log.error("sendModelMessage消息cloud服务降级执行，请检查消息模块服务");
-		return ErrorCodeEnum.INTERNAL_SERVER_ERROR.getErrorCode();
+		return ErrorCodeEnum.MESSAGE_SYSTEM_EXCEPTION.getErrorCode();
 	}
 
 }

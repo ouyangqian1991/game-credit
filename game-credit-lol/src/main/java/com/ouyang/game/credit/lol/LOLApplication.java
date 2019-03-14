@@ -1,6 +1,5 @@
 package com.ouyang.game.credit.lol;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,7 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @create: 2019-02-27 15:56
  **/
 @SpringBootApplication
-@Slf4j
 public class LOLApplication {
     public static void main(String[] args) {
         SpringApplication.run(LOLApplication.class, args);
